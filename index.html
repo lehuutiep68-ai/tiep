@@ -1,37 +1,174 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Tool chuyển link Shopee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Shopee Affiliate Link Tool</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f6f6f6;
+}
+
+.header{
+background:#ee4d2d;
+color:white;
+padding:18px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+}
+
+.container{
+max-width:700px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 3px 15px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+input{
+width:90%;
+padding:14px;
+font-size:16px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+button{
+background:#ee4d2d;
+color:white;
+border:none;
+padding:12px 25px;
+font-size:16px;
+margin-top:15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#d73211;
+}
+
+.result{
+margin-top:30px;
+background:#fff4f2;
+padding:15px;
+border-radius:8px;
+word-break:break-all;
+}
+
+.copy{
+background:#333;
+margin-top:10px;
+}
+
+.footer{
+text-align:center;
+margin-top:40px;
+color:#888;
+font-size:14px;
+}
+
+</style>
+
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:100px;">
+<body>
 
-<h2>Tool chuyển link Shopee</h2>
+<div class="header">
+Shopee Link Converter
+</div>
 
-<input id="link" placeholder="Dán link Shopee" style="width:300px;padding:10px">
+<div class="container">
 
-<br><br>
+<h2>Tạo link Shopee Affiliate</h2>
 
-<button onclick="taolink()" style="padding:10px 20px;background:#ee4d2d;color:white;border:none">
-Tạo link
-</button>
+<p>Dán link sản phẩm Shopee vào ô bên dưới</p>
 
-<p id="ketqua"></p>
+<input id="linkInput" placeholder="https://shopee.vn/...">
+
+<br>
+
+<button onclick="createLink()">Tạo link affiliate</button>
+
+<div id="resultBox" class="result" style="display:none">
+
+<p id="resultLink"></p>
+
+<button class="copy" onclick="copyLink()">Copy Link</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+Tool tạo link Shopee Affiliate
+
+</div>
 
 <script>
 
-function taolink(){
+let finalLink="";
 
-var link=document.getElementById("link").value;
+function createLink(){
 
-var ketqua = link + "?af_id=17345380357";
+let input=document.getElementById("linkInput").value.trim();
 
-document.getElementById("ketqua").innerHTML = ketqua;
+if(input===""){
+
+alert("Vui lòng nhập link Shopee");
+
+return;
+
+}
+
+if(!input.includes("shopee")){
+
+alert("Link không hợp lệ");
+
+return;
+
+}
+
+let affiliate="af_id=17345380357";
+
+if(input.includes("?")){
+
+finalLink=input+"&"+affiliate;
+
+}else{
+
+finalLink=input+"?"+affiliate;
+
+}
+
+document.getElementById("resultBox").style.display="block";
+
+document.getElementById("resultLink").innerHTML=
+"<b>Link affiliate của bạn:</b><br>"+finalLink;
+
+}
+
+function copyLink(){
+
+navigator.clipboard.writeText(finalLink);
+
+alert("Đã copy link!");
 
 }
 
 </script>
 
 </body>
+
 </html>
